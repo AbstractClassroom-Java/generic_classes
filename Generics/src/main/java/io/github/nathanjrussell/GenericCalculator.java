@@ -1,5 +1,8 @@
 package io.github.nathanjrussell;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GenericCalculator<T extends Number> {
 
     private final T value;
@@ -12,9 +15,14 @@ public class GenericCalculator<T extends Number> {
         return value;
     }
 
-    public Double add(T other) {
-        return value.doubleValue() + other.doubleValue();
+    @SuppressWarnings("unchecked")
+    public T add(T other) {
+        Number result = value.doubleValue() + other.doubleValue();
+        return (T) result;  // ⚠️ Unchecked cast (may fail for certain types)
     }
+//    public Double add(T other) {
+//        return value.doubleValue() + other.doubleValue();
+//    }
 
     public Double subtract(T other) {
         return value.doubleValue() - other.doubleValue();
@@ -32,6 +40,29 @@ public class GenericCalculator<T extends Number> {
     }
 
     public static void main(String[] args) {
+
+        List<String> strList = new ArrayList<>();
+        strList.add("Hello");
+        strList.add("World");
+
+        for (String str : strList) {
+            System.out.println(str);
+        }
+
+        List<Integer> intList = new ArrayList<>();
+        intList.add(1);
+        intList.add(2);
+
+        for (Integer i : intList) {
+            System.out.println(i);
+        }
+
+        Integer g = 5;
+        Integer h = 6;
+        g += h;
+
+        double ttt = g.doubleValue();
+        int c = g.intValue();
         GenericCalculator<Integer> intCalc = new GenericCalculator<>(10);
         GenericCalculator<Double> doubleCalc = new GenericCalculator<>(5.5);
 
